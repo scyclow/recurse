@@ -1,7 +1,8 @@
-TIME = 333;
+TIME = 250;
+var bodySize = Math.min( window.innerWidth, window.innerHeight );
 var body = {
   DOM: document.getElementsByTagName('body')[0],
-  size: 500,
+  size: bodySize,
   children: []
 };
 
@@ -18,5 +19,8 @@ function run() {
 document.addEventListener("DOMContentLoaded", function(event) {
   setup();
   setInterval(run, TIME);
+  setInterval(function() {
+    body.DOM.style['background-color'] = randColor();
+  }, TIME*2);
 });
 

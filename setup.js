@@ -1,5 +1,5 @@
 EXPAND_PROB = 0.9;
-EXPAND_DEC = 0.05;
+EXPAND_DEC = 0.1;
 
 var init = function(self, parent) {
   var DOM = document.createElement('div');
@@ -41,13 +41,15 @@ function Cell(parent) {
 }
 
 Cell.prototype.randColor = function() {
-  var letters = '0123456789ABCDEF'.split('');
-  var color = '#';
-  for (var i = 0; i < 6; i++ ) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
+  var color = randColor();
   this.DOM.style['background-color'] = color;
   this.DOM.style['outline-color'] = color;
+}
+
+Cell.prototype.randRadius = function() {
+  var sizeStr = this.DOM.style.width;
+  var size = +sizeStr.substring(sizeStr, sizeStr.length-2);
+  this.DOM.style['border-radius'] = size * Math.random();
 }
 
 function recurse(parent, func, base) { 
@@ -72,10 +74,20 @@ function randExpand(unit, prob) {
 function changeColor(unit) {
   if (!unit.children.length) {
     unit.randColor();
+    unit.randRadius();
     return 0;
   }
 };
 
 function randExec(prob, func) {
   if (Math.random() < prob) { func(); }
+}
+
+function randColor() {
+  var letters = '0123456789ABCDEF'.split('');
+  var color = '#';
+  for (var i = 0; i < 6; i++ ) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
 }

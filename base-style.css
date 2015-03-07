@@ -1,17 +1,15 @@
 * {
   padding: 0px;
   margin: 0px;
+  transition-duration: 0.25s;
+  -webkit-transition-duration: 0.25s;
 }
 
 body {
-  transition-duration: 0.5s;
-  -webkit-transition-duration: 0.5s;
 }
 
 .grid .cell {
   display: inline-block;
-  transition-duration: 0.5s;
-  -webkit-transition-duration: 0.5s;
 }
 
 .cell {
