@@ -1,20 +1,24 @@
 EXPAND_PROB = 0.9;
+EXPAND_DEC = 0.05;
 
 var init = function(self, parent) {
   var DOM = document.createElement('div');
   DOM.setAttribute('class', self.name);
   DOM.style['height'] = self.size;
   DOM.style['width'] = self.size;
+  self.DOM = DOM;
+
+  self.parent = parent;
+  self.parent.children.push(self);
+  self.parent.DOM.appendChild(DOM);
 
   self.children = [];
-  self.parent = parent;
-  self.parent.DOM.appendChild(DOM);
-  self.DOM = DOM;
 
   self.expand = function() {
     for (var i=0; i<self.amount; i++) {
+      var child = self.children[i];
+      
       var child = new self.childType(self);
-      self.children.push(child)
     }
   }
 }
@@ -36,16 +40,41 @@ function Cell(parent) {
   init(this, parent);
 }
 
-function recurse(parent, prob) {
-  if (prob <= 0) { return; }
+Cell.prototype.randColor = function() {
+  var letters = '0123456789ABCDEF'.split('');
+  var color = '#';
+  for (var i = 0; i < 6; i++ ) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  this.DOM.style['background-color'] = color;
+  this.DOM.style['outline-color'] = color;
+}
+
+function recurse(parent, func, base) { 
+  if (base === 0) { return; }
   for (var i=0; i<parent.children.length; i++) {
     var child = parent.children[i];
-    randExec(prob, function() {
-      child.expand();
-      recurse(child, prob - 0.2);
-    });
+    var newBase = func(child, base);
+    recurse(child, func, newBase);
   }
+};
+
+function randExpand(unit, prob) {
+  if (prob <= 0) { return 0; }
+
+  randExec(prob, function() {
+    if (unit instanceof Cell) { unit.expand(); }
+  });
+
+  return prob - EXPAND_DEC;
 }
+
+function changeColor(unit) {
+  if (!unit.children.length) {
+    unit.randColor();
+    return 0;
+  }
+};
 
 function randExec(prob, func) {
   if (Math.random() < prob) { func(); }

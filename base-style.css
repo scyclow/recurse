@@ -10,8 +10,9 @@ body {
 
 .grid .cell {
   display: inline-block;
-  outline: 1px solid black;
+  transition-duration: 0.5s;
+  -webkit-transition-duration: 0.5s;
 }
 
-.grid {
+.cell {
 }
