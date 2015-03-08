@@ -9,6 +9,7 @@ var body = {
 function setup() {
   body.DOM.innerHTML = '';
   grid = new Grid(body);
+  grid.DOM.setAttribute('id', 'parent');
   recurse(grid, randExpand, EXPAND_PROB);
 };
 

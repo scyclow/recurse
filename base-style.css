@@ -5,12 +5,10 @@
   -webkit-transition-duration: 0.25s;
 }
 
-body {
-}
-
 .grid .cell {
   display: inline-block;
 }
 
-.cell {
+#parent {
+  margin: auto;
 }
