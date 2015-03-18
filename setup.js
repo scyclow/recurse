@@ -49,7 +49,7 @@ Cell.prototype.randColor = function() {
 Cell.prototype.randRadius = function() {
   var sizeStr = this.DOM.style.width;
   var size = +sizeStr.substring(sizeStr, sizeStr.length-2);
-  this.DOM.style['border-radius'] = size * Math.random();
+  this.DOM.style['border-radius'] = (size * Math.random()) + 'px';
 }
 
 function recurse(parent, func, base) { 

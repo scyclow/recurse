@@ -1,4 +1,4 @@
-TIME = 250;
+TIME = 350;
 var bodySize = Math.min( window.innerWidth, window.innerHeight );
 var body = {
   DOM: document.getElementsByTagName('body')[0],
